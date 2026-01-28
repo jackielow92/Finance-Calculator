@@ -1,0 +1,32 @@
+{
+  "name": "finance-calculator",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Financial calculators for compound interest, Malaysian salary deductions, and housing loans",
+  "scripts": {
+    "dev": "pnpm --filter frontend dev",
+    "dev:backend": "pnpm --filter backend dev",
+    "build": "pnpm --filter frontend build",
+    "build:all": "pnpm -r build",
+    "preview": "pnpm --filter frontend preview",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "format": "pnpm -r format"
+  },
+  "keywords": [
+    "finance",
+    "calculator",
+    "compound-interest",
+    "malaysia",
+    "epf",
+    "socso",
+    "pcb",
+    "housing-loan"
+  ],
+  "author": "Jackie Low",
+  "license": "MIT",
+  "packageManager": "pnpm@8.15.0",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
