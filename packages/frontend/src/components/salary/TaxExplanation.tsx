@@ -47,7 +47,7 @@ function TaxCard({
   note,
 }: TaxCardProps) {
   return (
-    <div className="p-4 bg-bg rounded-xl shadow-neu-out">
+    <div className="p-4 bg-bg rounded-xl shadow-neu-out transition-all duration-300 hover:shadow-neu-in hover:scale-[1.02] cursor-default">
       <div className="flex items-start gap-3 mb-3">
         <div
           className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${iconColorClass}`}

@@ -260,7 +260,7 @@ function FeeExplanations({ propertyType }: FeeExplanationsProps) {
         {fees.map((fee) => (
           <div
             key={fee.name}
-            className="flex items-start gap-3 p-3 bg-bg rounded-lg shadow-neu-out"
+            className="flex items-start gap-3 p-3 bg-bg rounded-lg shadow-neu-out transition-all duration-300 hover:shadow-neu-in hover:scale-[1.02] cursor-default"
           >
             <div className="w-8 h-8 flex items-center justify-center rounded-full bg-primary/10 text-primary shrink-0">
               <i className={`fas ${fee.icon} text-sm`}></i>
