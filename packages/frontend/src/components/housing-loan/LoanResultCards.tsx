@@ -9,13 +9,6 @@ interface LoanResultCardsProps {
 function LoanResultCards({ calculation }: LoanResultCardsProps) {
   const { monthlyPayment, loanAmount, dsrScore, dsrStatus, totalCommitments } = calculation
 
-  const getDsrVariant = () => {
-    if (dsrScore <= 30) return 'success'
-    if (dsrScore <= 50) return 'default'
-    if (dsrScore <= 70) return 'warning'
-    return 'danger'
-  }
-
   return (
     <div className="space-y-4">
       <div className="summary-grid">

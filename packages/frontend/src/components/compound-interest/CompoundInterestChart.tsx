@@ -1,4 +1,3 @@
-import { useRef, useEffect } from 'react'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,6 +8,7 @@ import {
   Tooltip,
   Legend,
   Filler,
+  TooltipItem,
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 import { YearlyResult } from '../../types'
@@ -30,8 +30,6 @@ interface CompoundInterestChartProps {
 }
 
 function CompoundInterestChart({ results }: CompoundInterestChartProps) {
-  const chartRef = useRef<ChartJS<'line'>>(null)
-
   const data = {
     labels: results.map((r) => `Year ${r.year}`),
     datasets: [
@@ -92,12 +90,13 @@ function CompoundInterestChart({ results }: CompoundInterestChartProps) {
         borderColor: '#ccc',
         borderWidth: 1,
         callbacks: {
-          label: function (context: { dataset: { label?: string }; parsed: { y: number } }) {
+          label: function (context: TooltipItem<'line'>) {
             let label = context.dataset.label || ''
             if (label) {
               label += ': '
             }
-            label += 'RM ' + context.parsed.y.toLocaleString('en-MY', { maximumFractionDigits: 0 })
+            const value = context.parsed.y ?? 0
+            label += 'RM ' + value.toLocaleString('en-MY', { maximumFractionDigits: 0 })
             return label
           },
         },
@@ -133,7 +132,7 @@ function CompoundInterestChart({ results }: CompoundInterestChartProps) {
 
   return (
     <Card className="h-[400px]">
-      <Line ref={chartRef} data={data} options={options} />
+      <Line data={data} options={options} />
     </Card>
   )
 }

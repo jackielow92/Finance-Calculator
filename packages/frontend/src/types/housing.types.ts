@@ -62,6 +62,7 @@ export const DEFAULT_UPFRONT_PERCENTAGES: Record<PropertyType, UpfrontCostPercen
   subsale: {
     downpayment: 10,
     spLegalFee: 1,
+    stampDuty: 0, // Subsale uses MOT instead of stamp duty
     mot: 3,
     loanLegalFee: 0.5,
     loanStampDuty: 0.5,

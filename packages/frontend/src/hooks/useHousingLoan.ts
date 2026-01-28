@@ -4,7 +4,6 @@ import {
   Commitments,
   HousingLoanCalculation,
   UpfrontCostPercentages,
-  PropertyType,
   DEFAULT_UPFRONT_PERCENTAGES,
 } from '../types'
 import {
