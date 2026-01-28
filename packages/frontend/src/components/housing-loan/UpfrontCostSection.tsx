@@ -94,6 +94,9 @@ function UpfrontCostSection({
               {formatCurrency(newCosts.total)}
             </span>
           </div>
+
+          {/* Fee Explanations - New Property */}
+          <FeeExplanations propertyType="new" />
         </div>
       )}
 
@@ -144,6 +147,9 @@ function UpfrontCostSection({
               {formatCurrency(subsaleCosts.total)}
             </span>
           </div>
+
+          {/* Fee Explanations - Subsale */}
+          <FeeExplanations propertyType="subsale" />
         </div>
       )}
     </Card>
@@ -174,6 +180,105 @@ function CostRow({ label, percentage, amount, onPercentageChange }: CostRowProps
       <div className="w-32 text-right">
         <span className="text-sm text-text-sec block">Amount</span>
         <span className="font-semibold text-primary">{formatCurrency(amount)}</span>
+      </div>
+    </div>
+  )
+}
+
+interface FeeExplanationsProps {
+  propertyType: PropertyType
+}
+
+const NEW_PROPERTY_FEES = [
+  {
+    icon: 'fa-file-contract',
+    name: 'S&P Legal Fee (~1%)',
+    description: 'Based on Bar Council scale. Developer often covers this for new projects.',
+  },
+  {
+    icon: 'fa-stamp',
+    name: 'Stamp Duty (~3%)',
+    description:
+      'Government tiered rates, 1–4% typical. Sometimes waived for first-home buyers.',
+  },
+  {
+    icon: 'fa-gavel',
+    name: 'Loan Legal Fee (~0.5%)',
+    description: 'Legal work for loan documents. Sometimes free in new launches.',
+  },
+  {
+    icon: 'fa-file-invoice-dollar',
+    name: 'Loan Stamp Duty (0.5%)',
+    description: 'Fixed at 0.5% of loan amount.',
+  },
+]
+
+const SUBSALE_FEES = [
+  {
+    icon: 'fa-file-contract',
+    name: 'S&P Legal Fee (~1%)',
+    description: 'Based on Bar Council scale for Sale and Purchase Agreement.',
+  },
+  {
+    icon: 'fa-stamp',
+    name: 'MOT (~3%)',
+    description:
+      'Memorandum of Transfer stamp duty. Government tiered rates for property title transfer.',
+  },
+  {
+    icon: 'fa-gavel',
+    name: 'Loan Legal Fee (~0.5%)',
+    description: 'Legal work for loan agreement documents.',
+  },
+  {
+    icon: 'fa-file-invoice-dollar',
+    name: 'Loan Stamp Duty (0.5%)',
+    description: 'Fixed at 0.5% of loan amount.',
+  },
+  {
+    icon: 'fa-calculator',
+    name: 'Valuation Fee (~0.25%)',
+    description: 'Property valuation required by bank for loan approval.',
+  },
+]
+
+function FeeExplanations({ propertyType }: FeeExplanationsProps) {
+  const fees = propertyType === 'new' ? NEW_PROPERTY_FEES : SUBSALE_FEES
+  const noteText =
+    propertyType === 'new'
+      ? 'Total costs usually range from 3.5–5% of property price. For new projects, developers often absorb S&P Legal Fee, Loan Legal Fee, or Stamp Duty.'
+      : 'Total costs usually range from 5–7% of property price. Subsale properties require additional MOT and valuation fees.'
+
+  return (
+    <div className="mt-6 p-4 bg-bg rounded-lg shadow-neu-in">
+      <div className="flex items-center gap-2 mb-4">
+        <i className="fas fa-info-circle text-primary"></i>
+        <h4 className="font-bold text-text-main">Fee Explanations</h4>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        {fees.map((fee) => (
+          <div
+            key={fee.name}
+            className="flex items-start gap-3 p-3 bg-bg rounded-lg shadow-neu-out"
+          >
+            <div className="w-8 h-8 flex items-center justify-center rounded-full bg-primary/10 text-primary shrink-0">
+              <i className={`fas ${fee.icon} text-sm`}></i>
+            </div>
+            <div>
+              <div className="font-semibold text-text-main text-sm">{fee.name}</div>
+              <div className="text-xs text-text-sec mt-1">{fee.description}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-4 flex items-start gap-3 p-3 bg-primary/5 rounded-lg border border-primary/20">
+        <i className="fas fa-lightbulb text-primary mt-0.5"></i>
+        <div>
+          <div className="font-semibold text-text-main text-sm">Important Note</div>
+          <div className="text-xs text-text-sec mt-1">{noteText}</div>
+        </div>
       </div>
     </div>
   )
