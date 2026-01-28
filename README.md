@@ -16,6 +16,8 @@ Finance Calculator is a comprehensive web application that helps Malaysian profe
 
 3. **Housing Loan Calculator** - Evaluate property affordability with DSR (Debt Service Ratio) calculation, compare upfront costs between new and subsale properties, and factor in existing commitments.
 
+All calculators include an **Export to PDF** feature, allowing you to save your calculations as a professional report.
+
 All calculations run entirely in the browser - no server required, no data sent anywhere.
 
 ---
@@ -28,6 +30,7 @@ All calculations run entirely in the browser - no server required, no data sent 
 | **Build Tool** | Vite 5 |
 | **Styling** | Tailwind CSS (Neumorphic design) |
 | **Charts** | Chart.js + react-chartjs-2 |
+| **PDF Export** | jsPDF + html2canvas |
 | **State Management** | React Hooks (useState, useMemo, useCallback) |
 | **Testing** | Vitest + React Testing Library |
 | **Package Manager** | pnpm (monorepo with workspaces) |

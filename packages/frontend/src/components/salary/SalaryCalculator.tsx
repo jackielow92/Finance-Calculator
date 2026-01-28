@@ -1,4 +1,5 @@
-import { Card, SummaryCard } from '../common'
+import { useRef } from 'react'
+import { Card, SummaryCard, ExportButton } from '../common'
 import { useSalaryCalculator } from '../../hooks'
 import { formatCurrency } from '../../utils'
 import SalaryInputs from './SalaryInputs'
@@ -7,15 +8,23 @@ import TaxExplanation from './TaxExplanation'
 
 function SalaryCalculator() {
   const { inputs, setInput, calculation, isPcbLoading } = useSalaryCalculator()
+  const contentRef = useRef<HTMLDivElement>(null)
 
   return (
     <div className="space-y-6">
       {/* Inputs Section */}
       <Card>
-        <h2 className="text-xl font-bold text-text-main mb-4 flex items-center">
-          <i className="fas fa-keyboard mr-2 text-primary"></i>
-          Salary Details
-        </h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold text-text-main flex items-center">
+            <i className="fas fa-keyboard mr-2 text-primary"></i>
+            Salary Details
+          </h2>
+          <ExportButton
+            contentRef={contentRef}
+            filename="Salary_Statement"
+            title="Malaysian Salary Statement"
+          />
+        </div>
         <SalaryInputs inputs={inputs} onInputChange={setInput} />
         {isPcbLoading && (
           <p className="mt-2 text-sm text-text-sec">
@@ -25,42 +34,45 @@ function SalaryCalculator() {
         )}
       </Card>
 
-      {/* Summary Cards */}
-      <div className="summary-grid">
-        <SummaryCard
-          label="Gross Salary"
-          value={formatCurrency(calculation.grossSalary)}
-          icon="fa-money-bill-trend-up"
-        />
-        <SummaryCard
-          label="Total Deductions"
-          value={formatCurrency(calculation.totals.employee)}
-          icon="fa-money-bill-transfer"
-          variant="warning"
-        />
-        <SummaryCard
-          label="Net Salary"
-          value={formatCurrency(calculation.netSalary)}
-          icon="fa-wallet"
-          variant="success"
-          large
-        />
+      {/* Exportable Content */}
+      <div ref={contentRef} className="space-y-6">
+        {/* Summary Cards */}
+        <div className="summary-grid">
+          <SummaryCard
+            label="Gross Salary"
+            value={formatCurrency(calculation.grossSalary)}
+            icon="fa-money-bill-trend-up"
+          />
+          <SummaryCard
+            label="Total Deductions"
+            value={formatCurrency(calculation.totals.employee)}
+            icon="fa-money-bill-transfer"
+            variant="warning"
+          />
+          <SummaryCard
+            label="Net Salary"
+            value={formatCurrency(calculation.netSalary)}
+            icon="fa-wallet"
+            variant="success"
+            large
+          />
+        </div>
+
+        {/* Deduction Table */}
+        <Card>
+          <h2 className="text-xl font-bold text-text-main mb-4 flex items-center">
+            <i className="fas fa-table mr-2 text-primary"></i>
+            Salary Statement
+          </h2>
+          <DeductionTable
+            calculation={calculation}
+            basicSalary={inputs.basicSalary}
+            bonus={inputs.bonus}
+          />
+        </Card>
       </div>
 
-      {/* Deduction Table */}
-      <Card>
-        <h2 className="text-xl font-bold text-text-main mb-4 flex items-center">
-          <i className="fas fa-table mr-2 text-primary"></i>
-          Salary Statement
-        </h2>
-        <DeductionTable
-          calculation={calculation}
-          basicSalary={inputs.basicSalary}
-          bonus={inputs.bonus}
-        />
-      </Card>
-
-      {/* Tax Explanation */}
+      {/* Tax Explanation - not included in PDF */}
       <TaxExplanation />
     </div>
   )
